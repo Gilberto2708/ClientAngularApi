@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+  <div class="col-lg-7 col-md-10 col-sm-12">
+    <div class="card shadow-lg">
+      <div class="card-body text-center position-relative">
+        <button class="btn btn-primary position-absolute top-0 end-0 m-3" routerLink="/list">
+          Volver a la lista
+        </button>
+
+
+          <h2 class="card-title text-primary">{{ esEdicion ? 'Editar contacto' : 'Agregar nuevo contacto' }}</h2>
+
+
+        <p class="card-text">
+          Complete el formulario para agregar un nuevo contacto a la lista.
+        </p>
+
+        @if (form) {
+          <form class="mt-4 text-start" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombre"
+                name="nombre"
+                formControlName="name"
+              >
+              @if(form.get('name')?.hasError('required')) {
+                <div class="invalid-feedback d-block">
+                  <small>El nombre es requerido</small>
+                </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                formControlName="email"
+              >
+              @if(form.get('email')?.hasError('required')) {
+                <div class="invalid-feedback d-block">
+                  <small>El email es requerido</small>
+                </div>
+              }
+              @if(form.get('email')?.hasError('email')) {
+                <div class="invalid-feedback d-block">
+                  <small>Formato de email incorrecto</small>
+                </div>
+              }
+            </div>
+
+            <div class="text-center mt-4">
+              <button
+                type="submit"
+                class="btn btn-primary me-2"
+              >
+              {{ esEdicion ? 'Actualizar' : 'Guardar' }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                routerLink="/list"
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+        }
+
+
+      </div>
+    </div>
+  </div>
+</div>
